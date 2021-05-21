@@ -5,7 +5,7 @@ const Joi = require("joi");
 - Title (string)
 - Content (string)
 - Image (string)
-- Created by (User) - //TODO: add User schema as embedded subdocument
+- Created by (string) //! this is the name property on User schema
 - Date created (Date, default Date.now())
 */
 
@@ -15,6 +15,7 @@ const postSchema = new mongoose.Schema({
   image: { type: String, required: true, minLength: 2, maxLength: 500 },
   createdBy: { type: String, required: true, minLength: 2, maxLength: 100 },
   dateCreated: { type: Date, default: Date.now },
+  //TODO: Add a dateUpdated property
 });
 
 const Post = mongoose.model("Post", postSchema);
