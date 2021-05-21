@@ -1,4 +1,4 @@
-const Post = require("../models/post");
+const { Post, validatePost } = require("../models/post");
 const express = require("express");
 const router = express.Router();
 
@@ -9,6 +9,8 @@ router.get("/", async (req, res) => {
 
 router.post("/", async (req, res) => {
   try {
+    const { error } = validatePost(req.body);
+    if (error) return res.status(400).send(error);
     // create a new post object using the Post model
     const post = new Post({
       title: req.body.title,

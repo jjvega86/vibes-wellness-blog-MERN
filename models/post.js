@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const Joi = require("joi");
 
 /** 
 - Title (string)
@@ -18,4 +19,17 @@ const postSchema = new mongoose.Schema({
 
 const Post = mongoose.model("Post", postSchema);
 
-module.exports = Post;
+const validatePost = (post) => {
+  const schema = Joi.object({
+    title: Joi.string().min(2).max(100).required(),
+    content: Joi.string().min(2).max(1000000).required(),
+    image: Joi.string().min(2).max(500).required(),
+    createdBy: Joi.string().min(2).max(100).required(),
+  });
+
+  return schema.validate(post);
+};
+
+module.exports.Post = Post;
+module.exports.validate = validatePost;
+module.exports.postSchema = postSchema;
