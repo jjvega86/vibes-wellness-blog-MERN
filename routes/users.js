@@ -4,6 +4,7 @@ const express = require("express");
 const router = express.Router();
 
 //* POST a new user
+//TODO: Test in Postman
 router.post("/", async (req, res) => {
   try {
     const { error } = validate(req.body);
@@ -23,7 +24,9 @@ router.post("/", async (req, res) => {
 });
 
 //* POST a single post to a user's posts sub-document
-//! Will need to make a request to this route when adding a new post in posts.js
+//TODO: Test in Postman
+//! Need to create the post in posts.js first, query for user.name
+//! Then use response with post.id to make this request
 router.post("/:userId/posts/:postId", async (req, res) => {
   try {
     const user = await User.findById(req.params.userId);
@@ -47,6 +50,7 @@ router.post("/:userId/posts/:postId", async (req, res) => {
 });
 
 //* PUT a single post in a user's posts sub-document
+//TODO: Test in Postman
 //! Will need to make a request to this route when updating a post in posts.js
 router.put("/:userId/posts/:postId", async (req, res) => {
   try {
@@ -72,6 +76,30 @@ router.put("/:userId/posts/:postId", async (req, res) => {
 
     await postToUpdate.save();
     return res.send(postToUpdate);
+  } catch (ex) {
+    return res.status(500).send(`Internal Server Error: ${ex}`);
+  }
+});
+
+//* DELETE a single post from a user's posts sub-document
+//TODO: Test in Postman
+//! This will need to trigger when a post is deleted in posts
+router.delete("/:userId/posts/:postId", async (req, res) => {
+  try {
+    const user = User.findById(req.params.userId);
+    if (!user)
+      return res
+        .status(400)
+        .send(`User with id ${req.params.userId} does not exist!`);
+
+    const postToDelete = await user.posts.id(req.params.postId);
+    if (!postToDelete)
+      return res
+        .status(400)
+        .send(`Post with id ${req.params.id} does not exist!`);
+
+    postToDelete = await postToDelete.remove();
+    return res.send(postToDelete);
   } catch (ex) {
     return res.status(500).send(`Internal Server Error: ${ex}`);
   }
