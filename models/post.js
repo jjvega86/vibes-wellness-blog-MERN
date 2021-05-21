@@ -11,7 +11,7 @@ const mongoose = require("mongoose");
 const postSchema = new mongoose.Schema({
   title: { type: String, required: true, minLength: 2, maxLength: 100 },
   content: { type: String, required: true, minLength: 2, maxLength: 1000000 },
-  image: { type: String, required: true, minLength: 2, maxLength: 100 },
+  image: { type: String, required: true, minLength: 2, maxLength: 500 },
   createdBy: { type: String, required: true, minLength: 2, maxLength: 100 },
   dateCreated: { type: Date, default: Date.now },
 });
