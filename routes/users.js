@@ -7,6 +7,9 @@ const router = express.Router();
 //TODO: Test in Postman
 router.post("/", async (req, res) => {
   try {
+    const foundUser = User.find({ name: req.body.name });
+    if (foundUser)
+      return res.status(400).send(`User ${req.body.name} already exists!`);
     const { error } = validate(req.body);
     if (error) return res.status(400).send(error);
 
