@@ -4,7 +4,7 @@ const mongoose = require("mongoose");
 - Title (string)
 - Content (string)
 - Image (string)
-- Created by (User)
+- Created by (User) - //TODO: add User schema as embedded subdocument
 - Date created (Date, default Date.now())
 */
 
