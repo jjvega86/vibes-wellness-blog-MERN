@@ -2,6 +2,7 @@ const { User, validateUser } = require("../models/user");
 const { Post, validatePost } = require("../models/post");
 const bcrypt = require("bcrypt");
 const auth = require("../middleware/auth");
+const admin = require("../middleware/admin");
 const express = require("express");
 const router = express.Router();
 
@@ -38,6 +39,24 @@ router.post("/", async (req, res) => {
       .header("x-auth-token", token)
       .header("access-control-expose-headers", "x-auth-token")
       .send({ _id: user._id, name: user.name, email: user.email });
+  } catch (ex) {
+    return res.status(500).send(`Internal Server Error: ${ex}`);
+  }
+});
+
+//* DELETE a single user from the database
+//TODO: Implement a delete route using middleware to validate logged in user with auth token and isAdmin privileges
+//TODO: Test in Postman
+
+router.delete("/:userId", [auth, admin], async (req, res) => {
+  try {
+    const user = await User.findById(req.params.userId);
+    if (!user)
+      return res
+        .status(400)
+        .send(`User with id ${req.params.userId} does not exist!`);
+    await user.remove();
+    return res.send(user);
   } catch (ex) {
     return res.status(500).send(`Internal Server Error: ${ex}`);
   }
