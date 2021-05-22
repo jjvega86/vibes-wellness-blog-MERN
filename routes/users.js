@@ -1,6 +1,7 @@
 const { User, validateUser } = require("../models/user");
 const { Post, validatePost } = require("../models/post");
 const bcrypt = require("bcrypt");
+const auth = require("../middleware/auth");
 const express = require("express");
 const router = express.Router();
 
@@ -14,8 +15,7 @@ router.get("/", async (req, res) => {
   }
 });
 
-//* POST a new user
-// TODO: Validate if user exists already before posting again
+//* POST create a new user
 router.post("/", async (req, res) => {
   try {
     const { error } = validateUser(req.body);
@@ -33,7 +33,11 @@ router.post("/", async (req, res) => {
     });
 
     await user.save();
-    return res.send({ _id: user._id, name: user.name, email: user.email });
+    const token = user.generateAuthToken();
+    return res
+      .header("x-auth-token", token)
+      .header("access-control-expose-headers", "x-auth-token")
+      .send({ _id: user._id, name: user.name, email: user.email });
   } catch (ex) {
     return res.status(500).send(`Internal Server Error: ${ex}`);
   }
@@ -42,7 +46,7 @@ router.post("/", async (req, res) => {
 //* POST a single post to a user's posts sub-document
 //! Need to create the post in posts.js first, query for user.name
 //! Then use response with post.id to make this request
-router.post("/:userId/posts/:postId", async (req, res) => {
+router.post("/:userId/posts/:postId", auth, async (req, res) => {
   try {
     const user = await User.findById(req.params.userId);
     if (!user)
@@ -57,7 +61,6 @@ router.post("/:userId/posts/:postId", async (req, res) => {
         .send(`The post with id ${req.params.postId} does not exist!`);
 
     user.posts.push(post);
-    console.log(user);
     await user.save();
     return res.send(user.posts);
   } catch (ex) {
@@ -67,7 +70,7 @@ router.post("/:userId/posts/:postId", async (req, res) => {
 
 //* PUT a single post in a user's posts sub-document
 //! Will need to make a request to this route when updating a post in posts.js
-router.put("/:userId/posts/:postId", async (req, res) => {
+router.put("/:userId/posts/:postId", auth, async (req, res) => {
   try {
     const { error } = validatePost(req.body);
     if (error) return res.status(400).send(error);
@@ -96,7 +99,7 @@ router.put("/:userId/posts/:postId", async (req, res) => {
 
 //* DELETE a single post from a user's posts sub-document
 //! This will need to trigger when a post is deleted in posts
-router.delete("/:userId/posts/:postId", async (req, res) => {
+router.delete("/:userId/posts/:postId", auth, async (req, res) => {
   try {
     let user = await User.findById(req.params.userId);
     console.log(user);
