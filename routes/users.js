@@ -1,33 +1,43 @@
-const { User, validate } = require("../models/user");
-const { Post } = require("../models/post");
+const { User, validateUser } = require("../models/user");
+const { Post, validatePost } = require("../models/post");
 const express = require("express");
 const router = express.Router();
 
+//* Get all users
+router.get("/", async (req, res) => {
+  try {
+    const users = await User.find();
+    return res.send(users);
+  } catch (ex) {
+    return res.status(500).send(`Internal Server Error: ${ex}`);
+  }
+});
+
 //* POST a new user
-//TODO: Test in Postman
+// TODO: Validate if user exists already before posting again
 router.post("/", async (req, res) => {
   try {
-    const foundUser = User.find({ name: req.body.name });
-    if (foundUser)
-      return res.status(400).send(`User ${req.body.name} already exists!`);
-    const { error } = validate(req.body);
-    if (error) return res.status(400).send(error);
+    const { error } = validateUser(req.body);
+    if (error) return res.status(400).send(error).details[0].message;
 
-    const user = new User({
+    let user = await User.findOne({ email: req.body.email });
+    if (user)
+      return res.status(400).send(`Email ${req.body.email} already claimed!`);
+
+    user = new User({
       name: req.body.name,
       email: req.body.email,
       password: req.body.password,
     });
 
     await user.save();
-    return res.send(user);
+    return res.send({ _id: user._id, name: user.name, email: user.email });
   } catch (ex) {
     return res.status(500).send(`Internal Server Error: ${ex}`);
   }
 });
 
 //* POST a single post to a user's posts sub-document
-//TODO: Test in Postman
 //! Need to create the post in posts.js first, query for user.name
 //! Then use response with post.id to make this request
 router.post("/:userId/posts/:postId", async (req, res) => {
@@ -45,6 +55,7 @@ router.post("/:userId/posts/:postId", async (req, res) => {
         .send(`The post with id ${req.params.postId} does not exist!`);
 
     user.posts.push(post);
+    console.log(user);
     await user.save();
     return res.send(user.posts);
   } catch (ex) {
@@ -53,14 +64,13 @@ router.post("/:userId/posts/:postId", async (req, res) => {
 });
 
 //* PUT a single post in a user's posts sub-document
-//TODO: Test in Postman
 //! Will need to make a request to this route when updating a post in posts.js
 router.put("/:userId/posts/:postId", async (req, res) => {
   try {
-    const { error } = validate(req.body);
+    const { error } = validatePost(req.body);
     if (error) return res.status(400).send(error);
 
-    const user = User.findById(req.params.userId);
+    const user = await User.findById(req.params.userId);
     if (!user)
       return res
         .status(400)
@@ -75,9 +85,7 @@ router.put("/:userId/posts/:postId", async (req, res) => {
     postToUpdate.title = req.body.title;
     postToUpdate.content = req.body.content;
     postToUpdate.image = req.body.image;
-    postToUpdate.image = req.body.image;
-
-    await postToUpdate.save();
+    (postToUpdate.createdBy = req.body.createdBy), await user.save();
     return res.send(postToUpdate);
   } catch (ex) {
     return res.status(500).send(`Internal Server Error: ${ex}`);
@@ -85,23 +93,24 @@ router.put("/:userId/posts/:postId", async (req, res) => {
 });
 
 //* DELETE a single post from a user's posts sub-document
-//TODO: Test in Postman
 //! This will need to trigger when a post is deleted in posts
 router.delete("/:userId/posts/:postId", async (req, res) => {
   try {
-    const user = User.findById(req.params.userId);
+    let user = await User.findById(req.params.userId);
+    console.log(user);
     if (!user)
       return res
         .status(400)
         .send(`User with id ${req.params.userId} does not exist!`);
 
-    const postToDelete = await user.posts.id(req.params.postId);
+    let postToDelete = await user.posts.id(req.params.postId);
     if (!postToDelete)
       return res
         .status(400)
-        .send(`Post with id ${req.params.id} does not exist!`);
+        .send(`Post with id ${req.params.postId} does not exist!`);
 
     postToDelete = await postToDelete.remove();
+    user.save();
     return res.send(postToDelete);
   } catch (ex) {
     return res.status(500).send(`Internal Server Error: ${ex}`);

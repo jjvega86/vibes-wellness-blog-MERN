@@ -1,6 +1,6 @@
 const connectDb = require("./startup/db");
-const posts = require("./routes/posts");
-const users = require("./routes/users");
+const postsRouter = require("./routes/posts");
+const usersRouter = require("./routes/users");
 const express = require("express");
 const app = express();
 require("dotenv").config();
@@ -8,8 +8,8 @@ require("dotenv").config();
 connectDb();
 
 app.use(express.json());
-app.use(`/api/posts`, posts);
-app.use(`/api/users`, users);
+app.use(`/api/posts`, postsRouter);
+app.use(`/api/users`, usersRouter);
 
 const port = process.env.PORT || 5000;
 app.listen(port, () => {

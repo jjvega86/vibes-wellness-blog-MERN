@@ -1,4 +1,4 @@
-const { Post, validate } = require("../models/post");
+const { Post, validatePost } = require("../models/post");
 const express = require("express");
 const router = express.Router();
 
@@ -27,7 +27,7 @@ router.get("/:id", async (req, res) => {
 //* POST a single post
 router.post("/", async (req, res) => {
   try {
-    const { error } = validate(req.body);
+    const { error } = validatePost(req.body);
     if (error) return res.status(400).send(error);
     // create a new post object using the Post model
     // TODO: Query User documents for the username to add to createdBy
@@ -51,7 +51,7 @@ router.post("/", async (req, res) => {
 //* PUT a post by id
 router.put("/:id", async (req, res) => {
   try {
-    const { error } = validate(req.body);
+    const { error } = validatePost(req.body);
     if (error) return res.status(400).send(error);
 
     const postToUpdate = await Post.findByIdAndUpdate(

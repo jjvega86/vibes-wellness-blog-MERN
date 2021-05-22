@@ -32,5 +32,5 @@ const validatePost = (post) => {
 };
 
 module.exports.Post = Post;
-module.exports.validate = validatePost;
+module.exports.validatePost = validatePost;
 module.exports.postSchema = postSchema;
