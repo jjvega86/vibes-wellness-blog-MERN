@@ -1,5 +1,6 @@
 const { User, validateUser } = require("../models/user");
 const { Post, validatePost } = require("../models/post");
+const bcrypt = require("bcrypt");
 const express = require("express");
 const router = express.Router();
 
@@ -24,10 +25,11 @@ router.post("/", async (req, res) => {
     if (user)
       return res.status(400).send(`Email ${req.body.email} already claimed!`);
 
+    const salt = await bcrypt.genSalt(10);
     user = new User({
       name: req.body.name,
       email: req.body.email,
-      password: req.body.password,
+      password: await bcrypt.hash(req.body.password, salt),
     });
 
     await user.save();
