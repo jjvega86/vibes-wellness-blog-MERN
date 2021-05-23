@@ -4,8 +4,8 @@
 - [x] Basic wireframe of application
 - [x] Plan out backend - what schemas/models will I need?
 - [x] Follow both David tutorials to build out the backend and implement JWT
-- [ ] David Video - JWT in React
-- [ ] Download and install MongoDb Compass Community (unlimited databases, easy to work with vs. browser version)
+- [x] David Video - JWT in React
+- [x] Download and install MongoDb Compass Community (unlimited databases, easy to work with vs. browser version)
 - [ ] Refactor create new post to only make one request that adds a post to the posts document and the posting user's subdocument
 - [ ] Implement a way to make a user admin without having to modify MongoDb collection manually (programmatically)
 - [ ] Refactor posts routes to allow POST, PUT, and DELETE functionality only through authorized users

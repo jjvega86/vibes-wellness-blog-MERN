@@ -14,8 +14,7 @@ const postSchema = new mongoose.Schema({
   content: { type: String, required: true, minLength: 2, maxLength: 1000000 },
   image: { type: String, required: true, minLength: 2, maxLength: 500 },
   createdBy: { type: String, required: true, minLength: 2, maxLength: 100 },
-  dateCreated: { type: Date, default: Date.now },
-  //TODO: Add a dateUpdated property
+  dateUpdated: { type: Date, default: Date.now },
 });
 
 const Post = mongoose.model("Post", postSchema);
