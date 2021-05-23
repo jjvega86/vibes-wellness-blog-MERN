@@ -17,6 +17,17 @@
 
 - A boolean property is added to the schema for users (could create schemas for customers, employees, other roles as well)
 - Using an auth function in middleware, that boolean property is checked and either an access denied message sent,
-- or the next function called (in this case, the route handler function)
+  or the next function called (in this case, the route handler function)
 - In the case of my delete users endpoint, both the user logged in must send back the correct JWT token, and must have the
-- <isAdmin> boolean set to true in order for the route handler callback to be called
+  <isAdmin> boolean set to true in order for the route handler callback to be called
+
+# Logging out
+
+- The <CLIENT> is responsible for sending a valid JWT token on every response, so the client is responsible for deleting the token
+  that is currently being stored in order for the user to be required to re-login and generate a new JWT token
+
+# Hashing a password
+
+- Taking a plain text password and converting it into a much longer randomized string of numbers and letters
+- A <salt> creates an additional random string that tacks onto either side of the hash to make it harder to generate
+  the hashed password via brute force attempts

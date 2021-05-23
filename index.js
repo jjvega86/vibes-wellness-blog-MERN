@@ -8,7 +8,7 @@ require("dotenv").config();
 
 connectDb();
 
-app.use(express.json());
+app.use(express.json()); // automatically parses incoming requests with JSON payloads
 app.use(`/api/posts`, postsRouter);
 app.use(`/api/users`, usersRouter);
 app.use(`/api/auth`, authRouter);
