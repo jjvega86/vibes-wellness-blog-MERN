@@ -3,11 +3,13 @@ const postsRouter = require("./routes/posts");
 const usersRouter = require("./routes/users");
 const authRouter = require("./routes/auth");
 const express = require("express");
+const cors = require("cors");
 const app = express();
 require("dotenv").config();
 
 connectDb();
 
+app.use(cors());
 app.use(express.json()); // automatically parses incoming requests with JSON payloads
 app.use(`/api/posts`, postsRouter);
 app.use(`/api/users`, usersRouter);
