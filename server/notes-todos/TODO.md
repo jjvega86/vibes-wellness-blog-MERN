@@ -1,4 +1,4 @@
-# Tasks
+# Server Tasks
 
 - [x] Tour of other blogs. Take notes on features
 - [x] Basic wireframe of application
