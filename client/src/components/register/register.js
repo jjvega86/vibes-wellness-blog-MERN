@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import axios from "axios";
+import blog from "../../api/blog";
 
 const Register = () => {
   const [name, setName] = useState("");
@@ -14,8 +14,8 @@ const Register = () => {
       password: password,
     };
     (async () => {
-      await axios
-        .post("http://localhost:5000/api/auth/register", data)
+      await blog
+        .post("/auth/register", data)
         .then((res) => console.log(res))
         .catch((err) => console.log(err));
     })();
