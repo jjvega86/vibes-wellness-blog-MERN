@@ -16,7 +16,11 @@ const Register = () => {
     (async () => {
       await blog
         .post("/auth/register", data)
-        .then((res) => console.log(res))
+        .then((res) => {
+          localStorage.setItem("token", res.headers["x-auth-token"]);
+          const tokenFromStorage = localStorage.getItem("token");
+          console.log(tokenFromStorage);
+        })
         .catch((err) => console.log(err));
     })();
   };
