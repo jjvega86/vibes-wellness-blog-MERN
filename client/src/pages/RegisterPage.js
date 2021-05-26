@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import blog from "../../api/blog";
+import blog from "../api/blog";
 import jwtDecode from "jwt-decode";
 //TODO: Move JWT storage and decoding logic to app.js and refactor register.js accordingly
 //TODO: Refresh the page after storing token and route accordingly
-const Register = () => {
+const RegisterPage = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -73,4 +73,4 @@ const Register = () => {
   );
 };
 
-export default Register;
+export default RegisterPage;
