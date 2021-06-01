@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import blog from "../api/blog";
 import jwtDecode from "jwt-decode";
-//TODO: Move JWT storage and decoding logic to app.js and refactor register.js accordingly
 //TODO: Refresh the page after storing token and route accordingly
 const RegisterPage = () => {
   const [name, setName] = useState("");
@@ -10,8 +9,6 @@ const RegisterPage = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    localStorage.clear();
-    console.log(localStorage.getItem("token"));
     let data = {
       name: name,
       email: email,
