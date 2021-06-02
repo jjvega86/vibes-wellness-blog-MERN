@@ -11,15 +11,18 @@ const LoginPage = () => {
     let data = {
       email: email,
       password: password,
-    }(async () => {
+    };
+    (async () => {
       await blog
         .post("auth/login", data)
         .then((res) => {
-          localStorage.setItem("token", res.headers["x-auth-token"]); // gets JWT token from headers and saves to local storage
+          console.log(res.data);
+          localStorage.setItem("token", res.data);
           const tokenFromStorage = localStorage.getItem("token"); // grabs token from local storage and saves to a variable
           const userfromToken = jwtDecode(tokenFromStorage); // passes token into jwtDecode() (from third party package) to get user data from token
           console.log(userfromToken);
           console.log(localStorage);
+          window.location = "/";
         })
         .catch((ex) => console.log(ex));
     })();

@@ -7,21 +7,17 @@ import LoginPage from "./pages/LoginPage";
 import HomePage from "./pages/HomePage";
 
 const App = () => {
-  const [currentToken, setCurrentToken] = useState(
-    localStorage.getItem("token")
-  );
   const [currentUser, setCurrentUser] = useState({});
 
   useEffect(() => {
-    setCurrentToken(localStorage.getItem("token"));
-    const userfromToken = jwtDecode(currentToken);
+    let jwt = localStorage.getItem("token");
+    const userfromToken = jwtDecode(jwt);
     setCurrentUser(userfromToken);
-    console.log(currentUser);
   }, []);
 
   return (
     <Switch>
-      <Route exact path="/" component={HomePage} />
+      <Route exact path="/" render={() => <HomePage user={currentUser} />} />
       <Route path="/login" component={LoginPage} />
       <Route path="/register" component={RegisterPage} />
     </Switch>
