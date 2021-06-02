@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import blog from "../api/blog";
-import jwtDecode from "jwt-decode";
 
 const LoginPage = () => {
   const [email, setEmail] = useState("");
@@ -16,15 +15,14 @@ const LoginPage = () => {
       await blog
         .post("auth/login", data)
         .then((res) => {
-          console.log(res.data);
           localStorage.setItem("token", res.data);
-          const tokenFromStorage = localStorage.getItem("token"); // grabs token from local storage and saves to a variable
-          const userfromToken = jwtDecode(tokenFromStorage); // passes token into jwtDecode() (from third party package) to get user data from token
-          console.log(userfromToken);
-          console.log(localStorage);
           window.location = "/";
         })
-        .catch((ex) => console.log(ex));
+        .catch((ex) => {
+          console.log(ex);
+          localStorage.removeItem("token");
+          window.location = "/";
+        });
     })();
   };
 

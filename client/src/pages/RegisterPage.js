@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import blog from "../api/blog";
-import jwtDecode from "jwt-decode";
-//TODO: Refresh the page after storing token and route accordingly
+
 const RegisterPage = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -18,11 +17,7 @@ const RegisterPage = () => {
       await blog
         .post("/auth/register", data)
         .then((res) => {
-          localStorage.setItem("token", res.headers["x-auth-token"]); // gets JWT token from headers and saves to local storage
-          const tokenFromStorage = localStorage.getItem("token"); // grabs token from local storage and saves to a variable
-          const userfromToken = jwtDecode(tokenFromStorage); // passes token into jwtDecode() (from third party package) to get user data from token
-          console.log(userfromToken);
-          console.log(localStorage);
+          localStorage.setItem("token", res.headers["x-auth-token"]);
         })
         .catch((err) => console.log(err));
     })();
