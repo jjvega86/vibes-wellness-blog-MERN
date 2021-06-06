@@ -32,11 +32,12 @@ exports.addSinglePostToUser = async (req, res) => {
         .status(400)
         .send(`User with id ${req.params.userId} does not exist!`);
 
-    const post = await Post.findById(req.params.postId);
-    if (!post)
-      return res
-        .status(400)
-        .send(`The post with id ${req.params.postId} does not exist!`);
+    const post = new Post({
+      title: req.body.title,
+      content: req.body.content,
+      image: req.body.image,
+      createdBy: req.body.createdBy,
+    });
 
     user.posts.push(post);
     await user.save();

@@ -40,7 +40,12 @@ const App = () => {
           }}
         />
         <Route path="/login" component={LoginPage} />
-        <Route path="/addpost" component={AddPostPage} />
+        <Route
+          path="/addpost"
+          render={() => {
+            return <AddPostPage user={currentUser} />;
+          }}
+        />
         <Route path="/register" component={RegisterPage} />
       </Switch>
     </div>

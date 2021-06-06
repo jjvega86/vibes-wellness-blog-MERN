@@ -11,9 +11,7 @@ router.get("/", userController.getAllUsers);
 router.delete("/:userId", [auth, admin], userController.deleteSingleUser);
 
 //* POST a single post to a user's posts sub-document
-//! Need to create the post in posts.js first, query for user.name
-//! Then use response with post.id to make this request
-router.post("/:userId/posts/:postId", auth, userController.addSinglePostToUser);
+router.post("/:userId/posts/", auth, userController.addSinglePostToUser);
 
 //* PUT a single post in a user's posts sub-document
 //! Will need to make a request to this route when updating a post in posts.js

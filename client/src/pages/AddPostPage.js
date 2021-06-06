@@ -1,14 +1,22 @@
 import React, { useState } from "react";
 import blog from "../api/blog";
 
-const HomePage = () => {
+const AddPostPage = ({ user }) => {
   const [postTitle, setPostTitle] = useState("");
-  const [postBody, setPostBody] = useState("");
+  const [postContent, setPostContent] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    (async () => {
-      blog.post("/post");
+    const jwt = localStorage.getItem("token");
+    let data = {
+      title: postTitle,
+      content: postContent,
+      createdBy: user._id,
+    }(async () => {
+      blog
+        .post(`/user/${user._id}/posts`, data)
+        .then((res) => console.log(res))
+        .catch((err) => console.log(err));
     })();
   };
 
@@ -33,9 +41,9 @@ const HomePage = () => {
             <textarea
               type="text"
               name="name"
-              value={postBody}
+              value={postContent}
               onChange={(e) => {
-                setPostBody(e.target.value);
+                setPostContent(e.target.value);
               }}
             />
           </label>
@@ -47,4 +55,4 @@ const HomePage = () => {
   );
 };
 
-export default HomePage;
+export default AddPostPage;
