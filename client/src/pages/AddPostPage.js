@@ -7,14 +7,18 @@ const AddPostPage = ({ user }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    console.log(user._id);
     const jwt = localStorage.getItem("token");
     let data = {
       title: postTitle,
       content: postContent,
       createdBy: user._id,
-    }(async () => {
+    };
+    (async () => {
       blog
-        .post(`/user/${user._id}/posts`, data)
+        .post(`/users/${user._id}/posts`, data, {
+          headers: { "x-auth-token": jwt },
+        })
         .then((res) => console.log(res))
         .catch((err) => console.log(err));
     })();
