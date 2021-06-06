@@ -7,6 +7,9 @@ const HomePage = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    (async () => {
+      blog.post("/post");
+    })();
   };
 
   return (

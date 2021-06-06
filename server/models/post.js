@@ -12,7 +12,7 @@ const Joi = require("joi");
 const postSchema = new mongoose.Schema({
   title: { type: String, required: true, minLength: 2, maxLength: 100 },
   content: { type: String, required: true, minLength: 2, maxLength: 1000000 },
-  image: { type: String, required: true, minLength: 2, maxLength: 500 },
+  image: { type: String, required: false, minLength: 2, maxLength: 500 },
   createdBy: { type: String, required: true, minLength: 2, maxLength: 100 },
   dateUpdated: { type: Date, default: Date.now },
 });
@@ -23,7 +23,7 @@ const validatePost = (post) => {
   const schema = Joi.object({
     title: Joi.string().min(2).max(100).required(),
     content: Joi.string().min(2).max(1000000).required(),
-    image: Joi.string().min(2).max(500).required(),
+    image: Joi.string().min(2).max(500),
     createdBy: Joi.string().min(2).max(100).required(),
   });
 
