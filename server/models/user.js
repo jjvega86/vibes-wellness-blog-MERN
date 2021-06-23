@@ -1,5 +1,4 @@
 const mongoose = require("mongoose");
-const { postSchema } = require("./post");
 const Joi = require("joi");
 const jwt = require("jsonwebtoken");
 
@@ -20,7 +19,6 @@ const userSchema = mongoose.Schema({
     maxLength: 255,
   },
   password: { type: String, required: true, minLength: 8, maxLength: 1024 },
-  posts: { type: [postSchema], default: [] },
   isAdmin: { type: Boolean, default: false },
 });
 

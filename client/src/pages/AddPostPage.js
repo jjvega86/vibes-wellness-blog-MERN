@@ -4,10 +4,10 @@ import blog from "../api/blog";
 const AddPostPage = ({ user }) => {
   const [postTitle, setPostTitle] = useState("");
   const [postContent, setPostContent] = useState("");
+  const [allPosts, setAllPosts] = useState([]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(user._id);
     const jwt = localStorage.getItem("token");
     let data = {
       title: postTitle,
@@ -15,11 +15,14 @@ const AddPostPage = ({ user }) => {
       createdBy: user._id,
     };
     (async () => {
-      blog
+      await blog
         .post(`/users/${user._id}/posts`, data, {
           headers: { "x-auth-token": jwt },
         })
-        .then((res) => console.log(res))
+        .then((res) => {
+          setAllPosts(res.data);
+          console.log(allPosts);
+        })
         .catch((err) => console.log(err));
     })();
   };

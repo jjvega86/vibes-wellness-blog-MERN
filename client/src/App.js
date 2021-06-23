@@ -13,6 +13,11 @@ const App = () => {
   const [currentUser, setCurrentUser] = useState({});
 
   useEffect(() => {
+    let jwt = localStorage.getItem("token");
+    if (!jwt) {
+      setCurrentUser("NONE");
+      return;
+    }
     try {
       let jwt = localStorage.getItem("token");
       const userfromToken = jwtDecode(jwt);

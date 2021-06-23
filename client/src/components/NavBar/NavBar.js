@@ -1,7 +1,39 @@
 import React from "react";
 
+const setLoggedInState = (user) => {
+  let loggedInState;
+
+  if (user === "NONE") {
+    console.log(user);
+    loggedInState = (
+      <a className="nav-link" href="/login" tabIndex="-1" aria-disabled="true">
+        Login
+      </a>
+    );
+  } else {
+    console.log(user);
+    loggedInState = (
+      <a
+        style={{ cursor: "pointer" }}
+        className="nav-link"
+        onClick={() => {
+          localStorage.clear();
+          window.location = "/";
+        }}
+        tabIndex="-1"
+        aria-disabled="true"
+      >
+        Logout
+      </a>
+    );
+  }
+
+  return loggedInState;
+};
+
 const NavBar = ({ user }) => {
-  console.log(user);
+  let loggedInState = setLoggedInState(user);
+
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
       <a className="navbar-brand" href="#">
@@ -35,16 +67,7 @@ const NavBar = ({ user }) => {
               Add New Post
             </a>
           </li>
-          <li className="nav-item">
-            <a
-              className="nav-link"
-              href="/login"
-              tabIndex="-1"
-              aria-disabled="true"
-            >
-              Login/Logout
-            </a>
-          </li>
+          <li className="nav-item">{loggedInState}</li>
         </ul>
       </div>
     </nav>
