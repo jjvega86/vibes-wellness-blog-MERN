@@ -33,11 +33,15 @@ exports.createSinglePost = async (req, res) => {
       createdBy: req.body.createdBy,
     });
 
+    console.log(post);
+
     // save the new post by inserting the document into the Mongo database
     await post.save();
 
-    // returns a response to the requester with the object that was posted as the body
-    return res.send(post);
+    // Getting all the posts by createdBy user and returning them in the response.
+    let posts = await Post.find({ createdBy: req.body.createdBy });
+    console.log(posts);
+    return res.send(posts);
   } catch (ex) {
     return res.status(500).send(`Internal Server Error: ${ex}`);
   }

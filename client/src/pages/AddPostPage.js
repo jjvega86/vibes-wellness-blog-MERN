@@ -16,7 +16,7 @@ const AddPostPage = ({ user }) => {
     };
     (async () => {
       await blog
-        .post(`/users/${user._id}/posts`, data, {
+        .post(`/posts/`, data, {
           headers: { "x-auth-token": jwt },
         })
         .then((res) => {
