@@ -4,7 +4,7 @@ import jwtDecode from "jwt-decode";
 
 import RegisterPage from "./pages/RegisterPage";
 import LoginPage from "./pages/LoginPage";
-import HomePage from "./pages/HomePage";
+import ProfilePage from "./pages/ProfilePage";
 import AddPostPage from "./pages/AddPostPage";
 import AllPostsPage from "./pages/AllPostsPage";
 
@@ -31,30 +31,34 @@ const App = () => {
 
   return (
     <div className="container-fluid">
-      <NavBar user={currentUser} />
-      <br />
-      <Switch>
-        <Route
-          exact
-          path="/"
-          render={() => {
-            if (currentUser === "NONE") {
-              return <Redirect to="/login" />;
-            } else {
-              return <HomePage user={currentUser} />;
-            }
-          }}
-        />
-        <Route path="/login" component={LoginPage} />
-        <Route
-          path="/addpost"
-          render={() => {
-            return <AddPostPage user={currentUser} />;
-          }}
-        />
-        <Route path="/register" component={RegisterPage} />
-        <Route path="/allposts" component={AllPostsPage} />
-      </Switch>
+      <div className="row">
+        <NavBar user={currentUser} />
+        <br />
+      </div>
+      <div className="row mt-5">
+        <Switch>
+          <Route
+            exact
+            path="/"
+            render={() => {
+              if (currentUser === "NONE") {
+                return <Redirect to="/login" />;
+              } else {
+                return <ProfilePage user={currentUser} />;
+              }
+            }}
+          />
+          <Route path="/login" component={LoginPage} />
+          <Route
+            path="/addpost"
+            render={() => {
+              return <AddPostPage user={currentUser} />;
+            }}
+          />
+          <Route path="/register" component={RegisterPage} />
+          <Route path="/allposts" component={AllPostsPage} />
+        </Switch>
+      </div>
     </div>
   );
 };

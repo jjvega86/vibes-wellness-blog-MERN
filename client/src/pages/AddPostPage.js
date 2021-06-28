@@ -28,8 +28,9 @@ const AddPostPage = ({ user }) => {
   };
 
   return (
-    <div className="row">
-      <div className="col-md-12">
+    <>
+      <div className="col-md-3"></div>
+      <div className="col-md-6">
         <form className="form-group" onSubmit={handleSubmit}>
           <label>
             Post Title:
@@ -58,7 +59,8 @@ const AddPostPage = ({ user }) => {
           <input type="submit" value="Submit" />
         </form>
       </div>
-    </div>
+      <div className="col-md-3"></div>
+    </>
   );
 };
 
