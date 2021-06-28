@@ -9,6 +9,7 @@ import AddPostPage from "./pages/AddPostPage";
 import AllPostsPage from "./pages/AllPostsPage";
 
 import NavBar from "./components/NavBar/NavBar";
+import Footer from "./components/Footer/Footer";
 
 const App = () => {
   const [currentUser, setCurrentUser] = useState({});
@@ -58,6 +59,9 @@ const App = () => {
           <Route path="/register" component={RegisterPage} />
           <Route path="/allposts" component={AllPostsPage} />
         </Switch>
+      </div>
+      <div className="row">
+        <Footer />
       </div>
     </div>
   );
