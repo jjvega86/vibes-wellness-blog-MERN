@@ -4,14 +4,12 @@ const setLoggedInState = (user) => {
   let loggedInState;
 
   if (user === "NONE") {
-    console.log(user);
     loggedInState = (
       <a className="nav-link" href="/login" tabIndex="-1" aria-disabled="true">
         Login
       </a>
     );
   } else {
-    console.log(user);
     loggedInState = (
       <a
         style={{ cursor: "pointer" }}
@@ -53,8 +51,8 @@ const NavBar = ({ user }) => {
       <div className="collapse navbar-collapse" id="navbarNav">
         <ul className="navbar-nav ml-auto">
           <li className="nav-item">
-            <a className="nav-link" href="#">
-              All Posts <span className="sr-only">(current)</span>
+            <a className="nav-link" href="/allposts">
+              All Posts
             </a>
           </li>
           <li className="nav-item">
@@ -75,3 +73,4 @@ const NavBar = ({ user }) => {
 };
 
 export default NavBar;
+

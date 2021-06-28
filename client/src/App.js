@@ -6,6 +6,7 @@ import RegisterPage from "./pages/RegisterPage";
 import LoginPage from "./pages/LoginPage";
 import HomePage from "./pages/HomePage";
 import AddPostPage from "./pages/AddPostPage";
+import AllPostsPage from "./pages/AllPostsPage";
 
 import NavBar from "./components/NavBar/NavBar";
 
@@ -52,6 +53,7 @@ const App = () => {
           }}
         />
         <Route path="/register" component={RegisterPage} />
+        <Route path="/allposts" component={AllPostsPage} />
       </Switch>
     </div>
   );

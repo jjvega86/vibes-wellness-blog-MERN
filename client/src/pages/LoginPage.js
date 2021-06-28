@@ -27,31 +27,34 @@ const LoginPage = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <label>
-        Email:
-        <input
-          type="text"
-          name="name"
-          value={email}
-          onChange={(e) => {
-            setEmail(e.target.value);
-          }}
-        />
-      </label>
-      <label>
-        Password:
-        <input
-          type="text"
-          name="name"
-          value={password}
-          onChange={(e) => {
-            setPassword(e.target.value);
-          }}
-        />
-      </label>
-      <input type="submit" value="Submit" />
-    </form>
+    <React.Fragment>
+      <form onSubmit={handleSubmit}>
+        <label>
+          Email:
+          <input
+            type="text"
+            name="name"
+            value={email}
+            onChange={(e) => {
+              setEmail(e.target.value);
+            }}
+          />
+        </label>
+        <label>
+          Password:
+          <input
+            type="text"
+            name="name"
+            value={password}
+            onChange={(e) => {
+              setPassword(e.target.value);
+            }}
+          />
+        </label>
+        <input type="submit" value="Submit" />
+      </form>
+      <a href="/register">Register</a>
+    </React.Fragment>
   );
 };
 

@@ -25,7 +25,6 @@ exports.createSinglePost = async (req, res) => {
     const { error } = validatePost(req.body);
     if (error) return res.status(400).send(error);
     // create a new post object using the Post model
-    // TODO: Query User documents for the username to add to createdBy
     const post = new Post({
       title: req.body.title,
       content: req.body.content,
