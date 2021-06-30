@@ -1,7 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { getAllPostsAsync } from "../redux/postsSlice";
-import blog from "../api/blog";
 
 const AllPosts = () => {
   const dispatch = useDispatch();
@@ -9,7 +8,7 @@ const AllPosts = () => {
 
   useEffect(() => {
     dispatch(getAllPostsAsync());
-  }, []);
+  }, [dispatch]);
 
   return (
     <>
@@ -17,7 +16,7 @@ const AllPosts = () => {
       <div className="col-md-6">
         {posts ? (
           posts.map((post) => (
-            <li key={post.id}>
+            <li key={post._id}>
               {post.title} {post.content}
             </li>
           ))
