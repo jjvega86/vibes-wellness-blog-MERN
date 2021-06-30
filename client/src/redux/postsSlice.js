@@ -1,21 +1,30 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import blog from "../api/blog";
+
+export const getAllPostsAsync = createAsyncThunk(
+  "posts/getAllPostsAsync",
+  async () => {
+    try {
+      let response = await blog.get("/posts");
+      const posts = response.data;
+      return { posts };
+    } catch (err) {
+      console.log(err);
+    }
+  }
+);
 
 export const postsSlice = createSlice({
   name: "posts",
-  initialState: {
-    allPosts: null,
-    value: 0,
-  },
-  reducers: {
-    increment: (state) => {
-      state.value += 1;
-    },
-    decrement: (state) => {
-      state.value -= 1;
+  initialState: [],
+  reducers: {},
+  extraReducers: {
+    [getAllPostsAsync.fulfilled]: (state, action) => {
+      return action.payload.posts;
     },
   },
 });
 
-export const { increment, decrement } = postsSlice.actions;
+export const {} = postsSlice.actions;
 
 export default postsSlice.reducer;

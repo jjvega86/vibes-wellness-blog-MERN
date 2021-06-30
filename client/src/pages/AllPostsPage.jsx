@@ -1,22 +1,22 @@
 import React, { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { getAllPostsAsync } from "../redux/postsSlice";
 import blog from "../api/blog";
 
 const AllPosts = () => {
-  const [allPosts, setAllPosts] = useState(null);
+  const dispatch = useDispatch();
+  const posts = useSelector((state) => state.posts);
 
   useEffect(() => {
-    (async () => {
-      let response = await blog.get("/posts");
-      setAllPosts(response.data);
-    })();
+    dispatch(getAllPostsAsync());
   }, []);
 
   return (
     <>
       <div className="col-md-3"></div>
       <div className="col-md-6">
-        {allPosts ? (
-          allPosts.map((post) => (
+        {posts ? (
+          posts.map((post) => (
             <li key={post.id}>
               {post.title} {post.content}
             </li>
