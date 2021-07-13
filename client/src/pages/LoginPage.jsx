@@ -8,7 +8,7 @@ const LoginPage = () => {
       email: "",
       password: "",
     },
-    (e) => {
+    () => {
       (async () => {
         await blog
           .post("auth/login", formData)
