@@ -1,31 +1,31 @@
-import React, { useState } from "react";
+import React from "react";
 import blog from "../api/blog";
+import useCustomForm from "../hooks/useCustomForm";
 
 const AddPostPage = ({ user }) => {
-  const [postTitle, setPostTitle] = useState("");
-  const [postContent, setPostContent] = useState("");
-  const [allPosts, setAllPosts] = useState([]);
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const jwt = localStorage.getItem("token");
-    let data = {
-      title: postTitle,
-      content: postContent,
-      createdBy: user._id,
-    };
-    (async () => {
-      await blog
-        .post(`/posts/`, data, {
-          headers: { "x-auth-token": jwt },
-        })
-        .then((res) => {
-          setAllPosts(res.data);
-          console.log(allPosts);
-        })
-        .catch((err) => console.log(err));
-    })();
-  };
+  const [formData, handleInputChange, handleSubmit] = useCustomForm(
+    {
+      title: "",
+      content: "",
+    },
+    () => {
+      const jwt = localStorage.getItem("token");
+      (async () => {
+        await blog
+          .post(
+            `/posts/`,
+            { ...formData, createdBy: user._id },
+            {
+              headers: { "x-auth-token": jwt },
+            }
+          )
+          .then((res) => {
+            console.log(res.data);
+          })
+          .catch((err) => console.log(err));
+      })();
+    }
+  );
 
   return (
     <>
@@ -36,11 +36,9 @@ const AddPostPage = ({ user }) => {
             Post Title:
             <input
               type="text"
-              name="name"
-              value={postTitle}
-              onChange={(e) => {
-                setPostTitle(e.target.value);
-              }}
+              name="title"
+              value={formData.title}
+              onChange={handleInputChange}
             />
           </label>
           <br />
@@ -48,11 +46,9 @@ const AddPostPage = ({ user }) => {
             Post Text:
             <textarea
               type="text"
-              name="name"
-              value={postContent}
-              onChange={(e) => {
-                setPostContent(e.target.value);
-              }}
+              name="content"
+              value={formData.content}
+              onChange={handleInputChange}
             />
           </label>
           <br />
