@@ -1,30 +1,29 @@
-import React, { useState } from "react";
+import React from "react";
 import blog from "../api/blog";
+import useCustomForm from "../hooks/useCustomForm";
 
 const LoginPage = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    let data = {
-      email: email,
-      password: password,
-    };
-    (async () => {
-      await blog
-        .post("auth/login", data)
-        .then((res) => {
-          localStorage.setItem("token", res.data);
-          window.location = "/";
-        })
-        .catch((ex) => {
-          console.log(ex);
-          localStorage.removeItem("token");
-          window.location = "/";
-        });
-    })();
-  };
+  const [formData, handleInputChange, handleSubmit] = useCustomForm(
+    {
+      email: "",
+      password: "",
+    },
+    (e) => {
+      (async () => {
+        await blog
+          .post("auth/login", formData)
+          .then((res) => {
+            localStorage.setItem("token", res.data);
+            window.location = "/";
+          })
+          .catch((ex) => {
+            console.log(ex);
+            localStorage.removeItem("token");
+            window.location = "/";
+          });
+      })();
+    }
+  );
 
   return (
     <React.Fragment>
@@ -33,22 +32,18 @@ const LoginPage = () => {
           Email:
           <input
             type="text"
-            name="name"
-            value={email}
-            onChange={(e) => {
-              setEmail(e.target.value);
-            }}
+            name="email"
+            value={formData.email}
+            onChange={handleInputChange}
           />
         </label>
         <label>
           Password:
           <input
             type="text"
-            name="name"
-            value={password}
-            onChange={(e) => {
-              setPassword(e.target.value);
-            }}
+            name="password"
+            value={formData.password}
+            onChange={handleInputChange}
           />
         </label>
         <input type="submit" value="Submit" />
