@@ -10,8 +10,6 @@ const useCustomForm = (initialValues = {}, onSubmit) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("handleSubmit triggered!");
-    console.log(formData);
     onSubmit();
   };
 
