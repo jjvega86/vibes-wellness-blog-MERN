@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 
 const FilesUploadComponent = () => {
+  const [imageData, setImageData] = useState("");
   return (
     <div className="container">
       <div className="row">

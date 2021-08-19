@@ -1,5 +1,4 @@
 const { User } = require("../models/user");
-const { Post, validatePost } = require("../models/post");
 
 exports.getAllUsers = async (req, res) => {
   try {
