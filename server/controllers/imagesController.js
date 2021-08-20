@@ -1,6 +1,6 @@
 const { Image } = require("../models/image");
 
-exports.createSingleImage = (req, res) => {
+exports.createSingleImage = async (req, res) => {
   try {
     const url = req.protocol + "://" + req.get("host");
     const newImage = Image({ image: url + "/images/" + req.file.filename });

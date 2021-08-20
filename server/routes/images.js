@@ -3,7 +3,7 @@ const router = express.Router();
 const multer = require("multer");
 const path = require("path");
 const { v4: uuidv4 } = require("uuid");
-const { Image } = require("../models/image");
+const imagesController = require("../controllers/imagesController");
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -25,15 +25,10 @@ const fileFilter = (req, file, cb) => {
 
 let upload = multer({ storage, fileFilter });
 
-router.post("/upload", upload.single("image"), async (req, res) => {
-  try {
-    const url = req.protocol + "://" + req.get("host");
-    const newImage = Image({ image: url + "/images/" + req.file.filename });
-    await newImage.save();
-    return res.status(200).send(newImage);
-  } catch (error) {
-    console.log(error);
-  }
-});
+router.post(
+  "/upload",
+  upload.single("image"),
+  imagesController.createSingleImage
+);
 
 module.exports = router;
