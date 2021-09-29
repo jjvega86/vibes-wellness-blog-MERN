@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import blog from "../api/blog";
 
 const FilesUploadComponent = () => {
+  //TODO: Get image back in return and use in a component to display image
   const [imageData, setImageData] = useState("");
 
   const handleImage = (e) => {
@@ -11,6 +12,7 @@ const FilesUploadComponent = () => {
   const postImage = async (formData) => {
     try {
       let response = await blog.post("images/upload", formData);
+      localStorage.setItem("profileImage", response.data.image);
       console.log(response.data);
     } catch (error) {
       console.log(error);

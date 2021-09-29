@@ -34,9 +34,7 @@ const NavBar = ({ user }) => {
 
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
-      <a className="navbar-brand" href="#">
-        {user && <div>{user.name}</div>}
-      </a>
+      <a className="navbar-brand">{user && <div>{user.name}</div>}</a>
       <button
         className="navbar-toggler"
         type="button"
@@ -73,4 +71,3 @@ const NavBar = ({ user }) => {
 };
 
 export default NavBar;
-
