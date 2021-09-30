@@ -16,6 +16,7 @@ const FilesUploadComponent = () => {
           "x-auth-token": token,
         },
       });
+      console.log(response.data);
       window.location = "/";
     } catch (error) {
       console.log(error);

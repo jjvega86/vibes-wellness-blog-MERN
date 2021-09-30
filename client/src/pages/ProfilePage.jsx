@@ -2,7 +2,7 @@ import React from "react";
 import FilesUploadComponent from "../components/FilesUploadComponent";
 
 const checkForProfileImage = (user) => {
-  if (user.profileImage === null) {
+  if (user.profileImage === null || user.profileImage === undefined) {
     return <FilesUploadComponent />;
   } else {
     let stringifiedImage = user.profileImage.toString().split("/");
