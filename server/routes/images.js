@@ -3,7 +3,9 @@ const router = express.Router();
 const multer = require("multer");
 const path = require("path");
 const { v4: uuidv4 } = require("uuid");
+
 const imagesController = require("../controllers/imagesController");
+const auth = require("../middleware/auth");
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -27,7 +29,7 @@ let upload = multer({ storage, fileFilter });
 
 router.post(
   "/upload",
-  upload.single("image"),
+  [upload.single("image"), auth],
   imagesController.createSingleImage
 );
 

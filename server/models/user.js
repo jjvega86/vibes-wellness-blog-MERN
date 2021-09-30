@@ -19,12 +19,18 @@ const userSchema = mongoose.Schema({
     maxLength: 255,
   },
   password: { type: String, required: true, minLength: 8, maxLength: 1024 },
+  profileImage: { type: String, required: false },
   isAdmin: { type: Boolean, default: false },
 });
 
 userSchema.methods.generateAuthToken = function () {
   return jwt.sign(
-    { _id: this._id, name: this.name, isAdmin: this.isAdmin },
+    {
+      _id: this._id,
+      name: this.name,
+      isAdmin: this.isAdmin,
+      profileImage: this.profileImage,
+    },
     process.env.JWT_SECRET
   );
 };

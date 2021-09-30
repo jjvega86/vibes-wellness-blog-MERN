@@ -1,22 +1,24 @@
 import React from "react";
 import FilesUploadComponent from "../components/FilesUploadComponent";
 
-const checkForProfileImage = () => {
-  // runs when ProfilePage renders
-  // checks for profileImage in localStorage
-  // if it exists, render the image
-  // if it doesn't, render the FilesUploadComponent instead
-  const image = localStorage.getItem("profileImage");
-  if (image === null) {
+const checkForProfileImage = (user) => {
+  if (user.profileImage === null) {
     return <FilesUploadComponent />;
   } else {
-    return <img src={image} alt="profile for user" />;
+    let stringifiedImage = user.profileImage.toString().split("/");
+    let imagePath = stringifiedImage[4];
+    return (
+      <img
+        src={`http://localhost:8000/${imagePath}`}
+        alt="profile for user"
+        style={{ maxWidth: "200px" }}
+      />
+    );
   }
 };
 
 const ProfilePage = ({ user }) => {
-  //TODO: Add image upload for profile picture
-  const imageRender = checkForProfileImage();
+  const imageRender = checkForProfileImage(user);
   return (
     <>
       <div className="col-md-3"></div>
