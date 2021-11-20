@@ -1,4 +1,4 @@
-# wellness-blog
+# VIBES Wellness Blog
 
 A simple wellness-focused blog application built using the MERN stack (MongoDb, Express.js, React.js, Node.js). The application will allow wellness enthusiasts to follow each other and build up their relationships by sending "positive vibes" to other posts and only getting the option to more directly connect and chat after they have sent a certain amount of positive vibes to those they are following to encourage better engagement.
 
