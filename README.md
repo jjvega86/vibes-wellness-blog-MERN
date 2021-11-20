@@ -14,7 +14,7 @@ A simple wellness-focused blog application built using the MERN stack (MongoDb, 
 ## Third-Party APIs
 - Chat Engine API
 
-### User Stories
+## User Stories
 
 - As a designer, I want to create a wireframe in Adobe Xd with artboards for all pages in the application
 - As a frontend developer, I want to utilize Bootstrap and CSS to create responsive layouts, attractively styled.
