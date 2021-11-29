@@ -16,7 +16,7 @@ A simple wellness-focused blog application built using the MERN stack (MongoDb, 
 
 ## User Stories
 
-- As a designer, I want to create a wireframe in Adobe Xd with artboards for all pages in the application
+- As a designer, I want to create a wireframe in Figma with artboards for all pages in the application
 - As a frontend developer, I want to utilize Bootstrap and CSS to create responsive layouts, attractively styled.
 - As a backend developer, I want to use best practices to create a backend API that allows for secure access to resources for users and posts stored on a MongoDb cluster
 - As a full stack web developer, I want to deploy my application so it can be easily used and maintained
