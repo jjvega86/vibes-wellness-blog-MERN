@@ -8,7 +8,7 @@ A simple wellness-focused blog application built using the MERN stack (MongoDb, 
 - Deepen expertise with core MERN technologies, along with JS libraries like Redux, React Router, and others
 
 ## Technologies
-- Front End: React.js, React Router, Redux, Axios, Bootstrap, HTML/CSS, Figma for wireframing/prototyping
+- Front End: React.js, React Router, Redux, Axios, MUI, HTML/CSS, Figma for wireframing/prototyping
 - Back End: Node.js, Express.js, MongoDb, Mongoose (ORM), JWT, dotenv
 
 ## Third-Party APIs
@@ -17,7 +17,7 @@ A simple wellness-focused blog application built using the MERN stack (MongoDb, 
 ## User Stories
 
 - As a designer, I want to create a wireframe in Figma with artboards for all pages in the application
-- As a frontend developer, I want to utilize Bootstrap and CSS to create responsive layouts, attractively styled.
+- As a frontend developer, I want to utilize MUI and CSS to create responsive layouts, attractively styled.
 - As a backend developer, I want to use best practices to create a backend API that allows for secure access to resources for users and posts stored on a MongoDb cluster
 - As a full stack web developer, I want to deploy my application so it can be easily used and maintained
 - As a wellness enthusiast, I want to be able to register for an account, login, and logout securely.
