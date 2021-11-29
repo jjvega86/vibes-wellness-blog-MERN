@@ -8,7 +8,7 @@ A simple wellness-focused blog application built using the MERN stack (MongoDb, 
 - Deepen expertise with core MERN technologies, along with JS libraries like Redux, React Router, and others
 
 ## Technologies
-- Front End: React.js, React Router, Redux, Axios, Bootstrap, HTML/CSS
+- Front End: React.js, React Router, Redux, Axios, Bootstrap, HTML/CSS, Figma for wireframing/prototyping
 - Back End: Node.js, Express.js, MongoDb, Mongoose (ORM), JWT, dotenv
 
 ## Third-Party APIs
