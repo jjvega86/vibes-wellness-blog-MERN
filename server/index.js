@@ -1,4 +1,4 @@
-const connectDb = require("./startup/db");
+const connectDb = require("./db/db");
 const postsRouter = require("./routes/posts");
 const usersRouter = require("./routes/users");
 const authRouter = require("./routes/auth");
