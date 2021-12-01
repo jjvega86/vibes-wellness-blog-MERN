@@ -1,4 +1,4 @@
-import React from "react";
+import * as React from "react";
 import blog from "../api/blog";
 import useCustomForm from "../hooks/useCustomForm";
 

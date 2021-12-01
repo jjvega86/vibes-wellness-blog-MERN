@@ -1,4 +1,5 @@
-import React from "react";
+import * as React from "react";
+import { Toolbar, AppBar } from "@mui/material";
 
 const setLoggedInState = (user) => {
   let loggedInState;
@@ -29,7 +30,7 @@ const setLoggedInState = (user) => {
   return loggedInState;
 };
 
-const NavBar = ({ user }) => {
+const NavBarOld = ({ user }) => {
   let loggedInState = setLoggedInState(user);
 
   return (
@@ -67,6 +68,14 @@ const NavBar = ({ user }) => {
         </ul>
       </div>
     </nav>
+  );
+};
+
+const NavBar = ({ user }) => {
+  return (
+    <AppBar position="static">
+      <Toolbar>Navbar</Toolbar>
+    </AppBar>
   );
 };
 

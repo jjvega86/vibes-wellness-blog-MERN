@@ -1,5 +1,5 @@
 import React from "react";
-import FilesUploadComponent from "../components/FilesUploadComponent";
+import FilesUploadComponent from "../components/FilesUpload/FilesUploadComponent";
 
 const checkForProfileImage = (user) => {
   if (user.profileImage === null || user.profileImage === undefined) {

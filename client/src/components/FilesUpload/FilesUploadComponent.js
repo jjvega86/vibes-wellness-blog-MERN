@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import blog from "../api/blog";
+import blog from "../../api/blog";
 
 const FilesUploadComponent = () => {
   const [imageData, setImageData] = useState("");
