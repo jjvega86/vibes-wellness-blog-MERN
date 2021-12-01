@@ -1,81 +1,62 @@
 import * as React from "react";
-import { Toolbar, AppBar } from "@mui/material";
+import {
+  Toolbar,
+  AppBar,
+  IconButton,
+  Box,
+  Typography,
+  Button,
+} from "@mui/material";
+import MenuIcon from "@mui/icons-material/Menu";
 
 const setLoggedInState = (user) => {
   let loggedInState;
 
   if (user === "NONE") {
     loggedInState = (
-      <a className="nav-link" href="/login" tabIndex="-1" aria-disabled="true">
+      <Button color="inherit" href="/login">
         Login
-      </a>
+      </Button>
     );
   } else {
     loggedInState = (
-      <a
-        style={{ cursor: "pointer" }}
-        className="nav-link"
+      <Button
+        color="inherit"
         onClick={() => {
           localStorage.clear();
           window.location = "/";
         }}
-        tabIndex="-1"
-        aria-disabled="true"
       >
         Logout
-      </a>
+      </Button>
     );
   }
 
   return loggedInState;
 };
 
-const NavBarOld = ({ user }) => {
-  let loggedInState = setLoggedInState(user);
-
-  return (
-    <nav className="navbar navbar-expand-lg navbar-light bg-light">
-      <a className="navbar-brand">{user && <div>{user.name}</div>}</a>
-      <button
-        className="navbar-toggler"
-        type="button"
-        data-toggle="collapse"
-        data-target="#navbarNav"
-        aria-controls="navbarNav"
-        aria-expanded="true"
-        aria-label="Toggle navigation"
-      >
-        <span className="navbar-toggler-icon"></span>
-      </button>
-      <div className="collapse navbar-collapse" id="navbarNav">
-        <ul className="navbar-nav ml-auto">
-          <li className="nav-item">
-            <a className="nav-link" href="/allposts">
-              All Posts
-            </a>
-          </li>
-          <li className="nav-item">
-            <a className="nav-link" href="/">
-              My Profile
-            </a>
-          </li>
-          <li className="nav-item">
-            <a className="nav-link" href="/addpost">
-              Add New Post
-            </a>
-          </li>
-          <li className="nav-item">{loggedInState}</li>
-        </ul>
-      </div>
-    </nav>
-  );
-};
-
 const NavBar = ({ user }) => {
+  let loggedInState = setLoggedInState(user);
   return (
-    <AppBar position="static">
-      <Toolbar>Navbar</Toolbar>
-    </AppBar>
+    <Box sx={{ flexGrow: 1 }}>
+      <AppBar position="static">
+        <Toolbar>
+          <IconButton
+            size="large"
+            edge="start"
+            color="inherit"
+            aria-label="menu"
+            sx={{ mr: 2 }}
+          >
+            <MenuIcon />
+          </IconButton>
+          <Typography variant="h5" component="div" sx={{ flexGrow: 1 }}>
+            VIBES
+          </Typography>
+          {loggedInState}
+        </Toolbar>
+      </AppBar>
+    </Box>
   );
 };
 
