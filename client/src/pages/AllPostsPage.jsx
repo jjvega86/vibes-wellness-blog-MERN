@@ -12,19 +12,15 @@ const AllPosts = () => {
 
   return (
     <>
-      <div className="col-md-3"></div>
-      <div className="col-md-6">
-        {posts ? (
-          posts.map((post) => (
-            <li key={post._id}>
-              {post.title} {post.content}
-            </li>
-          ))
-        ) : (
-          <h1>Loading...</h1>
-        )}
-      </div>
-      <div className="col-md-3"></div>
+      {posts ? (
+        posts.map((post) => (
+          <li key={post._id}>
+            {post.title} {post.content}
+          </li>
+        ))
+      ) : (
+        <h1>Loading...</h1>
+      )}
     </>
   );
 };

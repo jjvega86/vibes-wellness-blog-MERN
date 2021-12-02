@@ -31,39 +31,32 @@ const App = () => {
   }, []);
 
   return (
-    <div className="container-fluid">
-      <div className="row">
-        <NavBar user={currentUser} />
-        <br />
-      </div>
-      <div className="row mt-5">
-        <Switch>
-          <Route
-            exact
-            path="/"
-            render={() => {
-              if (currentUser === "NONE") {
-                return <Redirect to="/login" />;
-              } else {
-                return <ProfilePage user={currentUser} />;
-              }
-            }}
-          />
-          <Route path="/login" component={LoginPage} />
-          <Route
-            path="/addpost"
-            render={() => {
-              return <AddPostPage user={currentUser} />;
-            }}
-          />
-          <Route path="/register" component={RegisterPage} />
-          <Route path="/allposts" component={AllPostsPage} />
-        </Switch>
-      </div>
-      <div className="row">
-        <Footer />
-      </div>
-    </div>
+    <>
+      <NavBar user={currentUser} />
+      <Switch>
+        <Route
+          exact
+          path="/"
+          render={() => {
+            if (currentUser === "NONE") {
+              return <Redirect to="/login" />;
+            } else {
+              return <ProfilePage user={currentUser} />;
+            }
+          }}
+        />
+        <Route path="/login" component={LoginPage} />
+        <Route
+          path="/addpost"
+          render={() => {
+            return <AddPostPage user={currentUser} />;
+          }}
+        />
+        <Route path="/register" component={RegisterPage} />
+        <Route path="/allposts" component={AllPostsPage} />
+      </Switch>
+      <Footer />
+    </>
   );
 };
 

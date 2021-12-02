@@ -27,9 +27,6 @@ const ProfilePage = ({ user }) => {
       </div>
       <div className="col-md-3">
         <div>{imageRender} </div>
-        <button onClick={() => console.log("Button clicked!")}>
-          Click Here to Update!
-        </button>
       </div>
     </>
   );

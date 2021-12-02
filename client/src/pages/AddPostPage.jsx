@@ -29,33 +29,29 @@ const AddPostPage = ({ user }) => {
 
   return (
     <>
-      <div className="col-md-3"></div>
-      <div className="col-md-6">
-        <form className="form-group" onSubmit={handleSubmit}>
-          <label>
-            Post Title:
-            <input
-              type="text"
-              name="title"
-              value={formData.title}
-              onChange={handleInputChange}
-            />
-          </label>
-          <br />
-          <label>
-            Post Text:
-            <textarea
-              type="text"
-              name="content"
-              value={formData.content}
-              onChange={handleInputChange}
-            />
-          </label>
-          <br />
-          <input type="submit" value="Submit" />
-        </form>
-      </div>
-      <div className="col-md-3"></div>
+      <form className="form-group" onSubmit={handleSubmit}>
+        <label>
+          Post Title:
+          <input
+            type="text"
+            name="title"
+            value={formData.title}
+            onChange={handleInputChange}
+          />
+        </label>
+        <br />
+        <label>
+          Post Text:
+          <textarea
+            type="text"
+            name="content"
+            value={formData.content}
+            onChange={handleInputChange}
+          />
+        </label>
+        <br />
+        <input type="submit" value="Submit" />
+      </form>
     </>
   );
 };
