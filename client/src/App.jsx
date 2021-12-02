@@ -11,6 +11,8 @@ import AllPostsPage from "./pages/AllPostsPage";
 import NavBar from "./components/NavBar/NavBar";
 import Footer from "./components/Footer/Footer";
 
+import { Container, Grid } from "@mui/material";
+
 const App = () => {
   const [currentUser, setCurrentUser] = useState({});
 
@@ -31,8 +33,10 @@ const App = () => {
   }, []);
 
   return (
-    <>
-      <NavBar user={currentUser} />
+    <Container maxWidth="lg">
+      <Grid container>
+        <NavBar user={currentUser} />
+      </Grid>
       <Switch>
         <Route
           exact
@@ -55,8 +59,20 @@ const App = () => {
         <Route path="/register" component={RegisterPage} />
         <Route path="/allposts" component={AllPostsPage} />
       </Switch>
-      <Footer />
-    </>
+      <Grid
+        item
+        style={{
+          position: "fixed",
+          left: 0,
+          bottom: 0,
+          width: "100%",
+          textAlign: "center",
+          marginTop: "-50px",
+        }}
+      >
+        <Footer />
+      </Grid>
+    </Container>
   );
 };
 

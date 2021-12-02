@@ -21,13 +21,8 @@ const ProfilePage = ({ user }) => {
   const imageRender = checkForProfileImage(user);
   return (
     <>
-      <div className="col-md-3"></div>
-      <div className="col-md-6">
-        <h1> Hello, {user.name}!</h1>
-      </div>
-      <div className="col-md-3">
-        <div>{imageRender} </div>
-      </div>
+      <h1> Hello, {user.name}!</h1>
+      <div>{imageRender} </div>
     </>
   );
 };
