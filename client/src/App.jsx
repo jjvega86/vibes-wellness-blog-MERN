@@ -23,7 +23,6 @@ const App = () => {
       return;
     }
     try {
-      let jwt = localStorage.getItem("token");
       const userfromToken = jwtDecode(jwt);
       setCurrentUser(userfromToken);
     } catch (ex) {

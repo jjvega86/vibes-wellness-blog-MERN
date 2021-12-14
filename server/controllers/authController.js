@@ -11,6 +11,7 @@ function validateLogin(req) {
 }
 
 exports.loginUser = async (req, res) => {
+  console.log(req.body);
   try {
     const { error } = validateLogin(req.body);
     if (error) return res.status(400).send(error.details[0].message);
@@ -33,7 +34,6 @@ exports.loginUser = async (req, res) => {
 };
 
 exports.registerUser = async (req, res) => {
-  console.log(req.body);
   try {
     const { error } = validateUser(req.body);
     if (error)
