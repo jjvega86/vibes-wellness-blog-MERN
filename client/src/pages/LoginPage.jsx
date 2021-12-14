@@ -21,17 +21,16 @@ const LoginPageMUI = () => {
     },
     () => {
       (async () => {
-        await blog
-          .post("auth/login", formData)
-          .then((res) => {
-            localStorage.setItem("token", res.data);
-            window.location = "/";
-          })
-          .catch((ex) => {
-            console.log(ex);
-            localStorage.removeItem("token");
-            window.location = "/";
-          });
+        try {
+          let response = await blog.post("auth/login", formData);
+          console.log(response.headers);
+          localStorage.setItem("token", response.data);
+          window.location = "/";
+        } catch (error) {
+          console.log(error.response.data);
+          localStorage.removeItem("token");
+          window.location = "/";
+        }
       })();
     }
   );

@@ -21,14 +21,15 @@ const RegisterPageMUI = () => {
     },
     () => {
       (async () => {
-        await blog
-          .post("/auth/register", formData)
-          .then((res) => {
-            localStorage.setItem("token", res.headers["x-auth-token"]);
-          })
-          .catch((err) => console.log(err));
+        try {
+          let response = await blog.post("/auth/register", formData);
+          console.log(response.headers);
+          localStorage.setItem("token", response.headers["x-auth-token"]);
+          window.location = "/";
+        } catch (error) {
+          console.log(error.response.data);
+        }
       })();
-      window.location = "/";
     }
   );
   return (
