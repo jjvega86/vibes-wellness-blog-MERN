@@ -1,6 +1,8 @@
 import React from "react";
 import FilesUploadComponent from "../components/FilesUpload/FilesUploadComponent";
 
+import { Typography, Container, Box, Paper } from "@mui/material";
+
 const checkForProfileImage = (user) => {
   if (user.profileImage === null || user.profileImage === undefined) {
     return <FilesUploadComponent />;
@@ -20,10 +22,21 @@ const checkForProfileImage = (user) => {
 const ProfilePage = ({ user }) => {
   const imageRender = checkForProfileImage(user);
   return (
-    <>
-      <h1> Hello, {user.name}!</h1>
-      <div>{imageRender} </div>
-    </>
+    <Container>
+      <Box
+        sx={{
+          marginTop: 8,
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+        }}
+      >
+        <Typography variant="h3">Hello, {user.name}!</Typography>
+        <Paper variant="outlined" sx={{ mt: 5 }}>
+          {imageRender}{" "}
+        </Paper>
+      </Box>
+    </Container>
   );
 };
 
