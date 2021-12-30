@@ -26,7 +26,6 @@ A simple wellness-focused blog application built using the MERN stack (MongoDb, 
 - As a wellness enthusiast, I want to the ability to update and delete posts I have already created.
 - As a wellness enthusiast, I want to the ability to see a listing of other wellness enthusiasts based on similar wellness interests on the blog and follow anyone I choose
 - As a wellness enthusiast, I want to see a feed of posts from other wellness enthusiasts I am following, and only their posts
-- As a wellness enthusiast, I want to be able to unfollow other wellness enthusiasts and no longer see their content on my feed
 - As a wellness enthusiast, I want to filter my feed of posts by specific wellness topic
 - As a wellness enthusiast, I want to add "positive vibes" to posts I like so that those posts are more visible in the feeds of others
 - As a wellness enthusiast, I want to be able to request a connection from another wellness enthusiast, but only if I have sent "positive vibes" for at least 5 of their posts (if I haven't, there will not be an option to connect)
