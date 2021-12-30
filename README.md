@@ -31,6 +31,6 @@ A simple wellness-focused blog application built using the MERN stack (MongoDb, 
 - As a wellness enthusiast, I want to be able to request a connection from another wellness enthusiast, but only if I have sent "positive vibes" for at least 5 of their posts (if I haven't, there will not be an option to connect)
 - As a wellness enthusiast, I want to be able to deny a connection request
 - As a wellness enthusiast, I want to be able to remove another wellness enthusiast from my list of connections
-- As a wellness enthusiast, I want to chat with other wellness enthusiasts I am connected with (Chat Engine API)
+- As a wellness enthusiast, I want to see other wellness enthusiasts that are online whom I am connected with them and chat with them (Chat Engine API)
 
 
