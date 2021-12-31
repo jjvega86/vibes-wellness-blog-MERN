@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Redirect, Route, Switch } from "react-router-dom";
 import jwtDecode from "jwt-decode";
+import { AuthProvider } from "./context/AuthContext";
 
 import RegisterPage from "./pages/RegisterPage";
 import LoginPage from "./pages/LoginPage";
@@ -32,46 +33,48 @@ const App = () => {
   }, []);
 
   return (
-    <Container maxWidth="lg">
-      <Grid container>
-        <NavBar user={currentUser} />
-      </Grid>
-      <Switch>
-        <Route
-          exact
-          path="/"
-          render={() => {
-            if (currentUser === "NONE") {
-              return <Redirect to="/login" />;
-            } else {
-              return <ProfilePage user={currentUser} />;
-            }
+    <AuthProvider>
+      <Container maxWidth="lg">
+        <Grid container>
+          <NavBar user={currentUser} />
+        </Grid>
+        <Switch>
+          <Route
+            exact
+            path="/"
+            render={() => {
+              if (currentUser === "NONE") {
+                return <Redirect to="/login" />;
+              } else {
+                return <ProfilePage user={currentUser} />;
+              }
+            }}
+          />
+          <Route path="/login" component={LoginPage} />
+          <Route
+            path="/addpost"
+            render={() => {
+              return <AddPostPage user={currentUser} />;
+            }}
+          />
+          <Route path="/register" component={RegisterPage} />
+          <Route path="/allposts" component={AllPostsPage} />
+        </Switch>
+        <Grid
+          item
+          style={{
+            position: "fixed",
+            left: 0,
+            bottom: 0,
+            width: "100%",
+            textAlign: "center",
+            marginTop: "-50px",
           }}
-        />
-        <Route path="/login" component={LoginPage} />
-        <Route
-          path="/addpost"
-          render={() => {
-            return <AddPostPage user={currentUser} />;
-          }}
-        />
-        <Route path="/register" component={RegisterPage} />
-        <Route path="/allposts" component={AllPostsPage} />
-      </Switch>
-      <Grid
-        item
-        style={{
-          position: "fixed",
-          left: 0,
-          bottom: 0,
-          width: "100%",
-          textAlign: "center",
-          marginTop: "-50px",
-        }}
-      >
-        <Footer />
-      </Grid>
-    </Container>
+        >
+          <Footer />
+        </Grid>
+      </Container>
+    </AuthProvider>
   );
 };
 

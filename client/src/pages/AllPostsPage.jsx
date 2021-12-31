@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { getAllPostsAsync } from "../redux/postsSlice";
+import { getAllPostsAsync } from "../features/posts/postsSlice";
 
 const AllPosts = () => {
   const dispatch = useDispatch();
@@ -8,7 +8,7 @@ const AllPosts = () => {
 
   useEffect(() => {
     dispatch(getAllPostsAsync());
-  }, [dispatch]);
+  }, [posts]);
 
   return (
     <>

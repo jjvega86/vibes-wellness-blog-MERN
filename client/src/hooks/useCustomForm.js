@@ -10,7 +10,7 @@ const useCustomForm = (initialValues = {}, onSubmit) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onSubmit();
+    onSubmit(formData);
   };
 
   return [formData, handleInputChange, handleSubmit];

@@ -1,8 +1,8 @@
-import React from "react";
+import React, { useContext } from "react";
+import { Link } from "react-router-dom";
 import blog from "../api/blog";
 import useCustomForm from "../hooks/useCustomForm";
-
-import { Link } from "react-router-dom";
+import AuthContext from "../context/AuthContext";
 
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
@@ -14,25 +14,11 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 
 const LoginPageMUI = () => {
+  const { loginUser } = useContext(AuthContext);
+  const defaultData = { email: "", password: "" };
   const [formData, handleInputChange, handleSubmit] = useCustomForm(
-    {
-      email: "",
-      password: "",
-    },
-    () => {
-      (async () => {
-        try {
-          let response = await blog.post("auth/login", formData);
-          console.log(response.headers);
-          localStorage.setItem("token", response.data);
-          window.location = "/";
-        } catch (error) {
-          console.log(error.response.data);
-          localStorage.removeItem("token");
-          window.location = "/";
-        }
-      })();
-    }
+    defaultData,
+    loginUser
   );
   return (
     <Grid container component="main" sx={{ height: "100vh" }}>
