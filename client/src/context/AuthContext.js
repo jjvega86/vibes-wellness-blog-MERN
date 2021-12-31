@@ -12,6 +12,17 @@ export const AuthProvider = ({ children }) => {
 
   const [user, setUser] = useState(decodedToken);
 
+  const registerUser = async (formData) => {
+    try {
+      let response = await blog.post("/auth/register", formData);
+      console.log(response.headers);
+      localStorage.setItem("token", response.headers["x-auth-token"]);
+      window.location = "/";
+    } catch (error) {
+      console.log(error.response.data);
+    }
+  };
+
   const loginUser = async (formData) => {
     try {
       let response = await blog.post("auth/login", formData);
@@ -35,6 +46,7 @@ export const AuthProvider = ({ children }) => {
     user,
     loginUser,
     logoutUser,
+    registerUser,
   };
 
   return (

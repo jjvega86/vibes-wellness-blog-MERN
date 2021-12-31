@@ -1,5 +1,4 @@
 import * as React from "react";
-import blog from "../api/blog";
 import useCustomForm from "../hooks/useCustomForm";
 
 import { Link } from "react-router-dom";
@@ -11,26 +10,18 @@ import Box from "@mui/material/Box";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
+import AuthContext from "../context/AuthContext";
 
 const RegisterPageMUI = () => {
+  const { registerUser } = React.useContext(AuthContext);
+  const defaultFormFields = {
+    name: "",
+    email: "",
+    password: "",
+  };
   const [formData, handleInputChange, handleSubmit] = useCustomForm(
-    {
-      name: "",
-      email: "",
-      password: "",
-    },
-    () => {
-      (async () => {
-        try {
-          let response = await blog.post("/auth/register", formData);
-          console.log(response.headers);
-          localStorage.setItem("token", response.headers["x-auth-token"]);
-          window.location = "/";
-        } catch (error) {
-          console.log(error.response.data);
-        }
-      })();
-    }
+    defaultFormFields,
+    registerUser
   );
   return (
     <Container component="main" maxWidth="xs">
