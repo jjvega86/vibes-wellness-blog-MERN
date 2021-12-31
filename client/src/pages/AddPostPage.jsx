@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useContext } from "react";
 import blog from "../api/blog";
+import AuthContext from "../context/AuthContext";
 import useCustomForm from "../hooks/useCustomForm";
 
-const AddPostPage = ({ user }) => {
+const AddPostPage = () => {
+  const { user } = useContext(AuthContext);
   const [formData, handleInputChange, handleSubmit] = useCustomForm(
     {
       title: "",

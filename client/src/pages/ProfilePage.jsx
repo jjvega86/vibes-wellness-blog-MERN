@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useContext } from "react";
 import FilesUploadComponent from "../components/FilesUpload/FilesUploadComponent";
 
 import { Typography, Container, Box, Paper } from "@mui/material";
+import AuthContext from "../context/AuthContext";
 
 const checkForProfileImage = (user) => {
   if (user.profileImage === null || user.profileImage === undefined) {
@@ -19,7 +20,8 @@ const checkForProfileImage = (user) => {
   }
 };
 
-const ProfilePage = ({ user }) => {
+const ProfilePage = () => {
+  const { user } = useContext(AuthContext);
   const imageRender = checkForProfileImage(user);
   return (
     <Container>

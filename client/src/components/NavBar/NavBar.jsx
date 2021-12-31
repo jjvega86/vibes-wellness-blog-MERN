@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useContext } from "react";
 import {
   Toolbar,
   AppBar,
@@ -8,8 +8,9 @@ import {
   Button,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
+import AuthContext from "../../context/AuthContext";
 
-const setLoggedInState = (user) => {
+const setLoggedInState = (user, logoutUser) => {
   let loggedInState;
 
   if (user === "NONE") {
@@ -20,13 +21,7 @@ const setLoggedInState = (user) => {
     );
   } else {
     loggedInState = (
-      <Button
-        color="inherit"
-        onClick={() => {
-          localStorage.clear();
-          window.location = "/";
-        }}
-      >
+      <Button color="inherit" onClick={logoutUser}>
         Logout
       </Button>
     );
@@ -35,8 +30,9 @@ const setLoggedInState = (user) => {
   return loggedInState;
 };
 
-const NavBar = ({ user }) => {
-  let loggedInState = setLoggedInState(user);
+const NavBar = () => {
+  const { user, logoutUser } = useContext(AuthContext);
+  let loggedInState = setLoggedInState(user, logoutUser);
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">

@@ -1,3 +1,4 @@
+import jwtDecode from "jwt-decode";
 import { createContext, useState } from "react";
 import blog from "../api/blog";
 
@@ -6,8 +7,12 @@ const AuthContext = createContext();
 export default AuthContext;
 
 export const AuthProvider = ({ children }) => {
+  const token = localStorage.getItem("token");
+  const decodedToken = token ? jwtDecode(token) : null;
+
+  const [user, setUser] = useState(decodedToken);
+
   const loginUser = async (formData) => {
-    console.log(formData);
     try {
       let response = await blog.post("auth/login", formData);
       console.log(response);
@@ -20,9 +25,16 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
+  const logoutUser = () => {
+    localStorage.removeItem("token");
+    setUser(null);
+    window.location = "/";
+  };
+
   let contextData = {
-    user: "JJ",
+    user,
     loginUser,
+    logoutUser,
   };
 
   return (

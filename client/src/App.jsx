@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { Redirect, Route, Switch } from "react-router-dom";
-import jwtDecode from "jwt-decode";
+import React from "react";
+import { Route, Switch } from "react-router-dom";
 import { AuthProvider } from "./context/AuthContext";
 
 import RegisterPage from "./pages/RegisterPage";
@@ -12,49 +11,34 @@ import AllPostsPage from "./pages/AllPostsPage";
 import NavBar from "./components/NavBar/NavBar";
 import Footer from "./components/Footer/Footer";
 
+import { PrivateRoute } from "./utils/PrivateRoute";
+
 import { Container, Grid } from "@mui/material";
 
 const App = () => {
-  const [currentUser, setCurrentUser] = useState({});
-
-  useEffect(() => {
-    let jwt = localStorage.getItem("token");
-    if (!jwt) {
-      setCurrentUser("NONE");
-      return;
-    }
-    try {
-      const userfromToken = jwtDecode(jwt);
-      setCurrentUser(userfromToken);
-    } catch (ex) {
-      setCurrentUser("NONE");
-      console.log(ex);
-    }
-  }, []);
-
   return (
     <AuthProvider>
       <Container maxWidth="lg">
         <Grid container>
-          <NavBar user={currentUser} />
+          <NavBar />
         </Grid>
         <Switch>
           <Route
             exact
             path="/"
             render={() => {
-              if (currentUser === "NONE") {
-                return <Redirect to="/login" />;
-              } else {
-                return <ProfilePage user={currentUser} />;
-              }
+              return (
+                <PrivateRoute>
+                  <ProfilePage />
+                </PrivateRoute>
+              );
             }}
           />
           <Route path="/login" component={LoginPage} />
           <Route
             path="/addpost"
             render={() => {
-              return <AddPostPage user={currentUser} />;
+              return <AddPostPage />;
             }}
           />
           <Route path="/register" component={RegisterPage} />
