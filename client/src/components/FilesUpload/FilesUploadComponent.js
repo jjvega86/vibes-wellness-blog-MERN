@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import blog from "../../api/blog";
 
+//TODO: Refactor upload JSX to use MUI components and remove choose file button
+
 const FilesUploadComponent = () => {
   const [imageData, setImageData] = useState("");
 
@@ -11,7 +13,7 @@ const FilesUploadComponent = () => {
   const postImage = async (formData) => {
     const token = localStorage.getItem("token");
     try {
-      let response = await blog.post("images/upload", formData, {
+      let response = await blog.post("images/cloudUpload", formData, {
         headers: {
           "x-auth-token": token,
         },
@@ -27,6 +29,7 @@ const FilesUploadComponent = () => {
     e.preventDefault();
     const formData = new FormData();
     formData.append("image", imageData);
+    formData.append("name", `profileImg_${Date.now()}`);
     postImage(formData);
   };
 
@@ -34,7 +37,7 @@ const FilesUploadComponent = () => {
     <div className="container">
       <div className="row">
         <form onSubmit={handleSubmit}>
-          <h3>File Upload</h3>
+          <h3>Upload Profile Image</h3>
           <div className="form-group">
             <input type="file" onChange={handleImage} />
           </div>

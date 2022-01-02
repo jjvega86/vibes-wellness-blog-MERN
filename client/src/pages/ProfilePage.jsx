@@ -1,20 +1,41 @@
 import React, { useContext } from "react";
 import FilesUploadComponent from "../components/FilesUpload/FilesUploadComponent";
+import AuthContext from "../context/AuthContext";
+import blog from "../api/blog";
+import { encode } from "base64-arraybuffer";
 
 import { Typography, Container, Box, Paper } from "@mui/material";
-import AuthContext from "../context/AuthContext";
 
-const checkForProfileImage = (user) => {
-  if (user.profileImage === null || user.profileImage === undefined) {
+const fetchProfilePicture = async () => {
+  try {
+    let response = await blog.get("images/profileImage", {
+      headers: {
+        "x-auth-token": localStorage.getItem("token"),
+      },
+    });
+    localStorage.setItem("profile", JSON.stringify(response.data.img));
+    window.location = "/";
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+const checkForProfileImageCloud = (user) => {
+  let imageData = JSON.parse(localStorage.getItem("profile"));
+  if (user.hasProfileImage && imageData === null) {
+    fetchProfilePicture();
+  }
+
+  if (imageData === undefined || imageData === null) {
     return <FilesUploadComponent />;
   } else {
-    let stringifiedImage = user.profileImage.toString().split("/");
-    let imagePath = stringifiedImage[4];
+    console.log(imageData);
+    const base64String = encode(imageData.data.data);
     return (
       <img
-        src={`http://localhost:8000/${imagePath}`}
+        src={`data:image/jpg;base64,${base64String}`}
         alt="profile for user"
-        style={{ maxWidth: "200px" }}
+        style={{ maxWidth: "200px", maxHeight: "200px" }}
       />
     );
   }
@@ -22,7 +43,7 @@ const checkForProfileImage = (user) => {
 
 const ProfilePage = () => {
   const { user } = useContext(AuthContext);
-  const imageRender = checkForProfileImage(user);
+  const imageRender = checkForProfileImageCloud(user);
   return (
     <Container>
       <Box

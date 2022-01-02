@@ -37,6 +37,7 @@ export const AuthProvider = ({ children }) => {
 
   const logoutUser = () => {
     localStorage.removeItem("token");
+    localStorage.removeItem("profile");
     setUser(null);
     window.location = "/";
   };

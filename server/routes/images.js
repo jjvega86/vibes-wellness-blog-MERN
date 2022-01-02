@@ -4,8 +4,10 @@ const multer = require("multer");
 const path = require("path");
 const { v4: uuidv4 } = require("uuid");
 
+const { Image } = require("../models/image");
 const imagesController = require("../controllers/imagesController");
 const auth = require("../middleware/auth");
+const { memoryStorage } = require("multer");
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -26,6 +28,8 @@ const fileFilter = (req, file, cb) => {
 };
 
 let upload = multer({ storage, fileFilter });
+let storage2 = multer.memoryStorage();
+let upload2 = multer({ storage: storage2 });
 
 router.post(
   "/upload",
@@ -33,4 +37,11 @@ router.post(
   imagesController.createSingleImage
 );
 
+router.post(
+  "/cloudUpload",
+  [upload2.single("image"), auth],
+  imagesController.createSingleImageCloud
+);
+
+router.get("/profileImage", auth, imagesController.getProfileImage);
 module.exports = router;
