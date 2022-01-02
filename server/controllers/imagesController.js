@@ -1,4 +1,3 @@
-const { Image } = require("../models/image");
 const { User } = require("../models/user");
 
 exports.createSingleImage = async (req, res) => {

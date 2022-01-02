@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useContext } from "react";
 import useCustomForm from "../hooks/useCustomForm";
 
 import { Link } from "react-router-dom";
@@ -13,7 +13,7 @@ import Container from "@mui/material/Container";
 import AuthContext from "../context/AuthContext";
 
 const RegisterPageMUI = () => {
-  const { registerUser } = React.useContext(AuthContext);
+  const { registerUser } = useContext(AuthContext);
   const defaultFormFields = {
     name: "",
     email: "",

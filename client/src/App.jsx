@@ -1,6 +1,7 @@
 import React from "react";
 import { Route, Switch } from "react-router-dom";
 import { AuthProvider } from "./context/AuthContext";
+import { PrivateRoute } from "./utils/PrivateRoute";
 
 import RegisterPage from "./pages/RegisterPage";
 import LoginPage from "./pages/LoginPage";
@@ -10,8 +11,6 @@ import AllPostsPage from "./pages/AllPostsPage";
 
 import NavBar from "./components/NavBar/NavBar";
 import Footer from "./components/Footer/Footer";
-
-import { PrivateRoute } from "./utils/PrivateRoute";
 
 import { Container, Grid } from "@mui/material";
 

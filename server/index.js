@@ -13,6 +13,7 @@ connectDb();
 
 app.use(cors());
 app.use(express.json()); // automatically parses incoming requests with JSON payloads
+app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, "images")));
 app.use(`/api/posts`, postsRouter);
 app.use(`/api/users`, usersRouter);

@@ -15,7 +15,6 @@ export const AuthProvider = ({ children }) => {
   const registerUser = async (formData) => {
     try {
       let response = await blog.post("/auth/register", formData);
-      console.log(response.headers);
       localStorage.setItem("token", response.headers["x-auth-token"]);
       window.location = "/";
     } catch (error) {

@@ -1,6 +1,5 @@
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
-import blog from "../api/blog";
 import useCustomForm from "../hooks/useCustomForm";
 import AuthContext from "../context/AuthContext";
 
