@@ -26,8 +26,13 @@ const checkForProfileImageCloud = (user) => {
     fetchProfilePicture();
   }
 
-  if (imageData === undefined || imageData === null) {
-    return <FilesUploadComponent />;
+  if (
+    (imageData === undefined || imageData === null) &&
+    user.hasProfileImage === false
+  ) {
+    return <FilesUploadComponent description={"Upload Profile Picture"} />;
+  } else if (user.hasProfileImage === true && imageData === null) {
+    return <h1>Loading...</h1>;
   } else {
     console.log(imageData);
     const base64String = encode(imageData.data.data);

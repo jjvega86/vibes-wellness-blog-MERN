@@ -1,14 +1,18 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import blog from "../../api/blog";
+import { Button, Box } from "@mui/material";
 
 //TODO: Refactor upload JSX to use MUI components and remove choose file button
 
-const FilesUploadComponent = () => {
+const FilesUploadComponent = ({ description }) => {
   const [imageData, setImageData] = useState("");
+  const [imageUrl, setImageUrl] = useState("");
 
-  const handleImage = (e) => {
-    setImageData(e.target.files[0]);
-  };
+  useEffect(() => {
+    if (imageData) {
+      setImageUrl(URL.createObjectURL(imageData));
+    }
+  }, [imageData]);
 
   const postImage = async (formData) => {
     const token = localStorage.getItem("token");
@@ -27,6 +31,7 @@ const FilesUploadComponent = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    alert("Submit triggered!");
     const formData = new FormData();
     formData.append("image", imageData);
     formData.append("name", `profileImg_${Date.now()}`);
@@ -34,21 +39,42 @@ const FilesUploadComponent = () => {
   };
 
   return (
-    <div className="container">
-      <div className="row">
-        <form onSubmit={handleSubmit}>
-          <h3>Upload Profile Image</h3>
-          <div className="form-group">
-            <input type="file" onChange={handleImage} />
-          </div>
-          <div className="form-group">
-            <button className="btn btn-primary" type="submit">
-              Upload
-            </button>
-          </div>
-        </form>
-      </div>
-    </div>
+    <>
+      <input
+        accept="image/*"
+        type="file"
+        id="select-image"
+        style={{ display: "none" }}
+        onChange={(e) => setImageData(e.target.files[0])}
+      />
+      <label htmlFor="select-image">
+        <Button variant="contained" color="primary" component="span">
+          Upload Image
+        </Button>
+      </label>
+      {imageUrl && imageData && (
+        <Box
+          mt={2}
+          textAlign="center"
+          component="form"
+          noValidate
+          onSubmit={handleSubmit}
+        >
+          <div>Image Preview:</div>
+          <img src={imageUrl} alt={imageData.name} height="100px" />
+          <br />
+          <Button
+            variant="contained"
+            color="primary"
+            component="span"
+            type="submit"
+            onClick={handleSubmit}
+          >
+            Submit Image
+          </Button>
+        </Box>
+      )}
+    </>
   );
 };
 

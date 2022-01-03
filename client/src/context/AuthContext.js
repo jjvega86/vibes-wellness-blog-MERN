@@ -1,5 +1,6 @@
 import jwtDecode from "jwt-decode";
 import { createContext, useState } from "react";
+import { useHistory } from "react-router-dom";
 import blog from "../api/blog";
 
 const AuthContext = createContext();
@@ -7,8 +8,8 @@ const AuthContext = createContext();
 export default AuthContext;
 
 export const AuthProvider = ({ children }) => {
-  const token = localStorage.getItem("token");
-  const decodedToken = token ? jwtDecode(token) : null;
+  const currentToken = localStorage.getItem("token");
+  const decodedToken = currentToken ? jwtDecode(currentToken) : null;
 
   const [user, setUser] = useState(decodedToken);
 
@@ -22,11 +23,15 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
+  const logUser = () => {
+    console.log(user);
+  };
+
   const loginUser = async (formData) => {
     try {
       let response = await blog.post("auth/login", formData);
-      console.log(response);
       localStorage.setItem("token", response.data);
+      logUser();
       window.location = "/";
     } catch (error) {
       console.log(error.response.data);
